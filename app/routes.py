@@ -1,6 +1,6 @@
 from flask import render_template,flash, redirect
 from app import app
-from app.forms import LoginForm
+from app.forms import LoginForm, NotesForm
 
 @app.route('/')
 @app.route('/index')
@@ -41,3 +41,11 @@ def login():
             form.username.data, form.remember_me.data))
         return redirect('/index')
     return render_template('login.html', title='Sign In', form=form)
+
+@app.route('/notes', methods=['GET', 'POST'])
+def notes():
+    form = NotesForm()
+    if form.validate_on_submit():
+        flash('Note entered: {}').format(form.notes)
+        return redirect('/index')
+    return render_template('notes.html', title='Notes App', form=form)
