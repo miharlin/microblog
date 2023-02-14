@@ -36,6 +36,7 @@ def songs():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    print('Running login form')
     if form.validate_on_submit():
         flash('Login requested for user {}, remember_me={}'.format(
             form.username.data, form.remember_me.data))
@@ -45,7 +46,9 @@ def login():
 @app.route('/notes', methods=['GET', 'POST'])
 def notes():
     form = NotesForm()
+    print('Running notes form')
     if form.validate_on_submit():
-        flash('Note entered: {}').format(form.notes)
+        print('Entered notes:', form.notes)
+        flash('Note entered: {}'.format(form.notes))
         return redirect('/index')
     return render_template('notes.html', title='Notes App', form=form)
